@@ -7,6 +7,7 @@ from app.services.whatsapp.builders.payment_payload import (
 from app.services.whatsapp.client.meta_client import MetaWhatsAppClient
 from app.services.whatsapp.schemas.payment import PaymentSuccessRequest
 from app.services.whatsapp.schemas.responses import MetaResponse
+from app.models.whatsapp_log import WhatsAppMessageLog
 
 class WhatsAppService:
     """
@@ -26,10 +27,23 @@ class WhatsAppService:
         """
 
         payload = build_payment_template(request)
+        
+        log = WhatsAppMessageLog(
+            tenant_id=request.tenant_id,
+            sme_user_id=request.sme_user_id,
+            phone_number=request.phone_number,
+            payment_id=request.payment_id,
+            status="pending",
+        )
+        self.repository.save(log)
 
         response = await self.client.send_template_message(
             payload
         )
+        
+        log.meta_message_id = response.messages[0].id
+        log.status = "sent"
+        self.repository.update(log)
 
         return response
 

@@ -14,9 +14,6 @@ class MetaWhatsAppClient:
      Client for communicating with Meta WhatsApp Cloud API.
     """
     def __init__(self):
-        print("Access Token:", repr(settings.whatsapp_access_token))
-        print("Phone Number ID:", settings.whatsapp_phone_number_id)
-        print("API Version:", settings.whatsapp_api_version)
         self.base_url = (
             f"{GRAPH_API_BASE_URL}/"
             f"{settings.whatsapp_api_version}/"

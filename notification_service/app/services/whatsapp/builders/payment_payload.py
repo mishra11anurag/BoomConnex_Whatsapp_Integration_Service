@@ -11,9 +11,7 @@ from app.services.whatsapp.schemas.meta_payload import (
 from app.services.whatsapp.schemas.payment import PaymentSuccessRequest
 
 
-def build_payment_template(
-    request: PaymentSuccessRequest,
-) -> MetaTemplatePayload:
+def build_payment_template(request: PaymentSuccessRequest) -> MetaTemplatePayload:
 
     template = TEMPLATES[PAYMENT_SUCCESS_TEMPLATE]
 

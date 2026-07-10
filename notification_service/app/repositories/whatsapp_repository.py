@@ -37,3 +37,10 @@ class WhatsAppRepository:
             .filter(WhatsAppMessageLog.meta_message_id == meta_message_id)
             .first()
         )
+    
+    def get_all(self):
+        return self.db.query(WhatsAppMessageLog).order_by(WhatsAppMessageLog.created_at.desc()).all()
+    
+    def delete(self, log: WhatsAppMessageLog):
+        self.db.delete(log)
+        self.db.commit()

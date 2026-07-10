@@ -4,6 +4,10 @@ from fastapi import FastAPI
 
 from app.api.routes.whatsapp import router as whatsapp_router
 from app.api.routes.webhook import router as webhook_router
+from app.db.database import Base, engine
+from app.models.whatsapp_log import WhatsAppMessageLog
+
+Base.metadata.create_all(bind=engine)
 
 logging.basicConfig(
     level=logging.INFO,
