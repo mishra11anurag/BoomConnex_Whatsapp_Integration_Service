@@ -39,11 +39,14 @@ class MetaWhatsAppClient:
         response = await self.client.post(
             url=self.base_url,
             headers=self.headers,
-            json=payload.model_dump(),
+            json=payload.model_dump(exclude_none=True),
         )
+
         print("URL:", self.base_url)
-        print("Status Code:", response.status_code)
+        print("Payload:", payload.model_dump(exclude_none=True))
+        print("Status:", response.status_code)
         print("Response:", response.text)
+
         response.raise_for_status()
 
         return MetaResponse(**response.json())

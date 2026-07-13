@@ -12,6 +12,7 @@ class WhatsAppMessageLog(Base):
     __tablename__ = "whatsapp_message_logs"
 
     id = Column(UUID(as_uuid=True),primary_key=True, default=uuid4)
+    name_of_sme = Column(String(100),nullable=False)
     tenant_id = Column(UUID(as_uuid=True),nullable=False)
     sme_user_id = Column(UUID(as_uuid=True),nullable=False)
     phone_number = Column(String(20),nullable=False)

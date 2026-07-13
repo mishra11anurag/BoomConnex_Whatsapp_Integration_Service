@@ -4,14 +4,19 @@ from pydantic import BaseModel
 class Language(BaseModel):
     code: str
 
+class Document(BaseModel):
+    link: str
+    filename: str
 
 class Parameter(BaseModel):
     type: str
-    text: str
-
+    text: str | None = None
+    document: Document | None = None
 
 class Component(BaseModel):
     type: str
+    sub_type: str | None = None
+    index: str | None = None
     parameters: list[Parameter]
 
 
@@ -26,3 +31,4 @@ class MetaTemplatePayload(BaseModel):
     to: str
     type: str
     template: Template
+

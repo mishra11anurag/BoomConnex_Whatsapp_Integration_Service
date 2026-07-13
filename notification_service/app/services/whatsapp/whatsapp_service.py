@@ -29,6 +29,7 @@ class WhatsAppService:
         payload = build_payment_template(request)
         
         log = WhatsAppMessageLog(
+            name_of_sme=request.name_of_sme,
             tenant_id=request.tenant_id,
             sme_user_id=request.sme_user_id,
             phone_number=request.phone_number,

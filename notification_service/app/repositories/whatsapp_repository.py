@@ -7,7 +7,8 @@ class WhatsAppRepository:
 
     def __init__(self, db: Session):
         self.db = db
-
+    # This repository is responsible for handling the database operations related to WhatsAppMessageLog model.
+    # CRUD operations are implemented here to interact with the database.
     def save(self, log: WhatsAppMessageLog):
 
         self.db.add(log)

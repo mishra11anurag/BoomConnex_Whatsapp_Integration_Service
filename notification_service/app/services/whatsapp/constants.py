@@ -10,7 +10,7 @@ MEDIA_ENDPOINT ="media"
 
 #Template Names
 
-PAYMENT_SUCCESS_TEMPLATE = "jaspers_market_plain_text_v1"
+PAYMENT_SUCCESS_TEMPLATE = "boomconnex_payment_confirmation"
 
 
 #Languages
