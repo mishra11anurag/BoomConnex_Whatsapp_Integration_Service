@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
 
-from sqlalchemy import Column, DateTime, String
+from sqlalchemy import Column, DateTime, String, DECIMAL
 from sqlalchemy.dialects.postgresql import UUID
 
 from app.db.database import Base
@@ -15,9 +15,12 @@ class WhatsAppMessageLog(Base):
     name_of_sme = Column(String(100),nullable=False)
     tenant_id = Column(UUID(as_uuid=True),nullable=False)
     sme_user_id = Column(UUID(as_uuid=True),nullable=False)
+    customer_name = Column(String(100), nullable=False)
     phone_number = Column(String(20),nullable=False)
     payment_id = Column(String(100),nullable=False)
-    meta_message_id = Column(String(255),nullable=True)
+    invoice_number = Column(String(50), unique=True, nullable=False)
+    amount = Column(DECIMAL(10, 2), nullable=False)
+    meta_message_id = Column(String(255),nullable=False)
     status = Column(String(20),nullable=False)
     created_at = Column(DateTime,default=datetime.utcnow,nullable=False)
     updated_at = Column(DateTime,default=datetime.utcnow,onupdate=datetime.utcnow,nullable=False)

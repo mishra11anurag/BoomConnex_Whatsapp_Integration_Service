@@ -8,6 +8,9 @@ from app.services.whatsapp.client.meta_client import MetaWhatsAppClient
 from app.services.whatsapp.schemas.payment import PaymentSuccessRequest
 from app.services.whatsapp.schemas.responses import MetaResponse
 from app.models.whatsapp_log import WhatsAppMessageLog
+from app.services.invoice.invoice_number_generator import InvoiceNumberGenerator
+from pydantic import Field
+
 
 class WhatsAppService:
     """
@@ -25,15 +28,20 @@ class WhatsAppService:
         """
         Send payment success notification.
         """
-
-        payload = build_payment_template(request)
+        invoice_number = str(InvoiceNumberGenerator.generate())
+        
+        payload = build_payment_template(request, invoice_number)
         
         log = WhatsAppMessageLog(
+            amount=request.amount,
+            invoice_number=invoice_number,
+            customer_name=request.customer_name,
             name_of_sme=request.name_of_sme,
             tenant_id=request.tenant_id,
             sme_user_id=request.sme_user_id,
             phone_number=request.phone_number,
             payment_id=request.payment_id,
+            meta_message_id="",
             status="pending",
         )
         self.repository.save(log)

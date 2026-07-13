@@ -39,6 +39,18 @@ class WhatsAppRepository:
             .first()
         )
     
+    def get_by_invoice_number(
+    self,
+    invoice_number: str,
+    ):
+        return (
+            self.db.query(WhatsAppMessageLog)
+            .filter(
+                WhatsAppMessageLog.invoice_number == invoice_number
+            )
+            .first()
+        )
+    
     def get_all(self):
         return self.db.query(WhatsAppMessageLog).order_by(WhatsAppMessageLog.created_at.desc()).all()
     

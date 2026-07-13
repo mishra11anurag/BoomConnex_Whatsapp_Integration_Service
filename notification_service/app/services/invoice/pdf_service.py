@@ -1,33 +1,31 @@
-from pathlib import Path
+from io import BytesIO
 
-from weasyprint import HTML
+from xhtml2pdf import pisa
 
 
 class PDFService:
     """
-    Service for generating PDF files from HTML.
+    Service for generating PDF from rendered HTML.
     """
 
     def generate(
         self,
         html_content: str,
-        output_path: str,
-    ) -> str:
+    ) -> BytesIO:
         """
-        Generate a PDF from rendered HTML.
+        Generate PDF from HTML and return it as BytesIO.
         """
 
-        output_file = Path(output_path)
+        pdf_buffer = BytesIO()
 
-        output_file.parent.mkdir(
-            parents=True,
-            exist_ok=True,
+        pisa_status = pisa.CreatePDF(
+            src=html_content,
+            dest=pdf_buffer,
         )
 
-        HTML(
-            string=html_content,
-        ).write_pdf(
-            target=str(output_file),
-        )
+        if pisa_status.err:
+            raise Exception("Failed to generate PDF.")
 
-        return str(output_file)
+        pdf_buffer.seek(0)
+
+        return pdf_buffer

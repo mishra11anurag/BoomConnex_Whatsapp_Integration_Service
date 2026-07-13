@@ -10,11 +10,11 @@ MEDIA_ENDPOINT ="media"
 
 #Template Names
 
-PAYMENT_SUCCESS_TEMPLATE = "boomconnex_payment_confirmation"
+PAYMENT_SUCCESS_TEMPLATE = "boomconnexpaymentsuccess"
 
 
 #Languages
-DEFAULT_LANGUAGE ="en_US"
+DEFAULT_LANGUAGE ="en"
 
 #Message Types
 TEMPLATE ="template"

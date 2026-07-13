@@ -16,6 +16,7 @@ from app.services.whatsapp.schemas.payment import PaymentSuccessRequest
 
 def build_payment_template(
     request: PaymentSuccessRequest,
+    invoice_number: str,
 ) -> MetaTemplatePayload:
 
     template = TEMPLATES[PAYMENT_SUCCESS_TEMPLATE]
@@ -35,11 +36,8 @@ def build_payment_template(
                     type="header",
                     parameters=[
                         Parameter(
-                            type="document",
-                            document=Document(
-                                link=request.invoice_url,
-                                filename=f"{request.invoice_number}.pdf",
-                            ),
+                            type="text",
+                            text = request.customer_name,
                         ),
                     ],
                 ),
@@ -50,11 +48,15 @@ def build_payment_template(
                     parameters=[
                         Parameter(
                             type="text",
-                            text=request.customer_name,
+                            text=str(request.amount),
                         ),
                         Parameter(
                             type="text",
-                            text=request.invoice_number,
+                            text=request.payment_id,
+                        ),
+                        Parameter(
+                            type="text",
+                            text=invoice_number,
                         ),
                     ],
                 ),
@@ -67,7 +69,7 @@ def build_payment_template(
                     parameters=[
                         Parameter(
                             type="text",
-                            text=request.invoice_number,
+                            text=invoice_number,
                         ),
                     ],
                 ),

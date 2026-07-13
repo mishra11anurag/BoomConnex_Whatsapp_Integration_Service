@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Invoice</title>
@@ -13,49 +12,65 @@
             color:#333;
         }
 
+        .container{
+            border:1px solid #ddd;
+            padding:30px;
+        }
+
         .header{
             display:flex;
             justify-content:space-between;
             align-items:center;
-            margin-bottom:40px;
+            border-bottom:2px solid #0d6efd;
+            padding-bottom:15px;
+            margin-bottom:25px;
         }
 
-        .company{
-            font-size:34px;
+        .company-name{
+            font-size:28px;
+            color:#0d6efd;
             font-weight:bold;
-            color:#ff6600;
         }
 
         .invoice-title{
-            font-size:28px;
+            font-size:26px;
             font-weight:bold;
         }
 
         table{
             width:100%;
             border-collapse:collapse;
-            margin-top:25px;
+            margin-top:20px;
         }
 
-        th{
-            background:#ff6600;
-            color:white;
-            padding:12px;
-        }
-
-        td{
+        td,th{
             padding:12px;
             border:1px solid #ddd;
         }
 
-        .summary{
-            width:300px;
-            margin-left:auto;
-            margin-top:30px;
+        th{
+            background:#f5f5f5;
+        }
+
+        .section{
+            margin-top:25px;
+        }
+
+        .total{
+            margin-top:25px;
+            text-align:right;
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .status{
+            margin-top:20px;
+            color:green;
+            font-weight:bold;
         }
 
         .footer{
-            margin-top:80px;
+            margin-top:50px;
             text-align:center;
             font-size:14px;
             color:#666;
@@ -67,116 +82,115 @@
 
 <body>
 
-<div class="header">
+<div class="container">
 
-    <div>
+    <div class="header">
 
-        <div class="company">
+        <div>
+            <div class="company-name">
+                BoomConnex
+            </div>
 
-            BoomConnex
-
+            <div>
+                Payment Invoice
+            </div>
         </div>
 
-        <p>
-
-            Invoice ID :
-            {{ invoice_number }}
-
-        </p>
-
-        <p>
-
-            Payment ID :
-            {{ payment_id }}
-
-        </p>
+        <div class="invoice-title">
+            INVOICE
+        </div>
 
     </div>
 
-    <div class="invoice-title">
+    <table>
 
-        INVOICE
+        <tr>
+            <td><b>Invoice Number</b></td>
+            <td>{{ invoice_number }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Payment ID</b></td>
+            <td>{{ payment_id }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Invoice Date</b></td>
+            <td>{{ invoice_date }}</td>
+        </tr>
+
+    </table>
+
+
+    <div class="section">
+
+        <h3>Customer Details</h3>
+
+        <table>
+
+            <tr>
+                <td><b>Name</b></td>
+                <td>{{ customer_name }}</td>
+            </tr>
+
+            <tr>
+                <td><b>Plan</b></td>
+                <td>{{ name_of_sme }}</td>
+            </tr>
+
+        </table>
 
     </div>
 
-</div>
 
-<h2>
+    <div class="section">
 
-Customer Details
+        <h3>Payment Summary</h3>
 
-</h2>
+        <table>
 
-<p>
+            <thead>
 
-<b>Name :</b>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
 
-{{ customer_name }}
+            </thead>
 
-</p>
+            <tbody>
 
-<p>
+                <tr>
+                    <td>{{ name_of_sme }}</td>
+                    <td>₹ {{ amount }}</td>
+                </tr>
 
-<b>Phone :</b>
+            </tbody>
 
-{{ phone_number }}
+        </table>
 
-</p>
+    </div>
 
-<table>
 
-<tr>
+    <div class="total">
 
-<th>Description</th>
+        Total : ₹ {{ amount }}
 
-<th>Amount</th>
+    </div>
 
-</tr>
+    <div class="status">
 
-<tr>
+        Payment Status : PAID
 
-<td>
+    </div>
 
-{{ plan_name }}
+    <div class="footer">
 
-</td>
+        Thank you for choosing BoomConnex.
 
-<td>
-
-₹ {{ amount }}
-
-</td>
-
-</tr>
-
-</table>
-
-<div class="summary">
-
-<table>
-
-<tr>
-
-<td>Total</td>
-
-<td>
-
-₹ {{ amount }}
-
-</td>
-
-</tr>
-
-</table>
-
-</div>
-
-<div class="footer">
-
-Thank you for choosing BoomConnex.
+    </div>
 
 </div>
 
 </body>
-
 </html>

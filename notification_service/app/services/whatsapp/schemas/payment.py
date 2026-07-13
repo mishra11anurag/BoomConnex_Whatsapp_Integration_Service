@@ -1,5 +1,9 @@
 from decimal import Decimal
 from .base import BaseWhatsAppRequest
+from datetime import datetime
+
+
+
 
 class PaymentSuccessRequest(BaseWhatsAppRequest):
     """
@@ -8,8 +12,7 @@ class PaymentSuccessRequest(BaseWhatsAppRequest):
     customer_name: str
     name_of_sme: str
     payment_id: str
-    invoice_number: str
-    invoice_url: str
     amount: Decimal
+    invoice_number: str = ""
     currency: str = "INR"
-    
+    created_at: datetime = datetime.now()
